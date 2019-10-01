@@ -3,7 +3,6 @@
 #include "common.hpp"
 
 // defined in RF.cpp
-extern enum RF_MAPPING;
 
 enum CPU_INSTRUCTION_SET
 {
