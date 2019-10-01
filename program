@@ -1,0 +1,16 @@
+irmov USER0 0
+irmov USER1 1337
+irmov USER2 1
+immov 500 1337
+call 27
+cmp USER0 USER1
+je 20
+halt
+irmov USER2 2
+halt
+halt
+halt
+halt
+irmov USER0 500
+ret
+halt

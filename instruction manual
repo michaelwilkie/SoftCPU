@@ -1,0 +1,117 @@
+########################################################
+                  # Insruction Set #
+########################################################
+operation val1, val2
+result of operation is stored in val1
+
+
+'a' and 'b' are placeholders for register names
+instr   arg1    arg2
+halt                        stop the processor from executing
+add     a    ,   b          add a and b
+sub     a    ,   b          subtract a and b
+mult    a    ,   b          multiply a and b
+inc     a                   increment the value of a by 1
+dec     a                   decrement the value of a by 1
+and     a    ,   b          apply and operator to a and b
+or      a    ,   b          apply or operator to a and b
+xor     a    ,   b          apply xor operator to a and b
+cmp     a    ,   b          compare a and b, result stored in CP_FL
+call    i                   puts instruction pointer + 1 on stack, then jumps to address i
+ret                         resets instruction pointer to value on top of the stack
+push    a                   puts the value in a on the stack
+pop     a                   removes the value on the stack and puts it into a
+jmp     a                   sets instruction pointer to a
+je      a                   if CP_FL is zero, the instruction pointer is set to a
+jne     a                   if CP_FL is not zero, the instruction pointer is set to a
+jle     a                   if CP_FL is less than zero, the instruction pointer is set to a
+jge     a                   if CP_FL is greater than zero, the instruction pointer is set to a
+mov     a    ,   b          undefined, will do later
+irmov   a    ,   i          move the value of i to a
+rrmov   a    ,   b          move value of b to a
+mrmov   a    ,   i          move the value in the address of i to a
+rmmov   a    ,   i          move the value of a to the address of i
+immov   i1   ,   i2         move the value of i2 to the address of i1
+mmmov   i1   ,   i2         move the value in the address i2 into the address of i1
+
+########################################################
+                    # Memory #
+########################################################
+    Main memory is an 8 megabyte file that is memory mapped inside the Memory class.
+    It can hold 1 million 8-byte values.
+    By default, all 1 million 8-byte values are initialized to 0.
+
+    mainmemory (file)
+    <-----------8 bytes---------->  
+    ##############################
+    ##############################  <---------------+
+    ##       INSTRUCTIONS       ## <- Instr. pointer|
+    ##            |             ##                  |
+    ##            v             ##                  |
+    ##                          ##                  |
+    ##  ----------------------  ##                  |
+    ##    HEAP(not supported)   ##                  |
+    ##            |             ##                  |
+    ##            v             ##                  |
+    ##                          ##                  |
+    ##        8 megabytes       ##  1 million 8-byte-addressable space
+    ##                          ##                  |
+    ##                          ##                  |
+    ##                          ##                  |
+    ##                          ##                  |
+    ##                          ##                  |
+    ##                          ##                  |
+    ##                          ##                  |
+    ##            ^             ##                  |
+    ##            |             ##                  |
+    ##          STACK           ## <- Stack pointer |
+    ##############################  <---------------+
+    ##############################
+
+    push, pop, call, ret all modify the stack pointer
+    call and push make the stack pointer go up
+    ret and pop make the stack pointer go down
+
+
+########################################################
+                  # Register File #
+########################################################
+
+    All registers are initialized to 0 at program start.
+    
+    These registers are not for the programmer to modify.
+    These registers help the CPU not have to overwrite the user registers
+    in order to do some swapping.
+    TEMP0
+    TEMP1
+    TEMP2
+    TEMP3
+    TEMP4
+
+    These registers are for the programmer to use however they design their program.
+    USER0
+    USER1
+    USER2
+    USER3
+    USER4
+    USER5
+    USER6
+    USER7
+    USER8
+    USER9
+    USER10
+    USER11
+    USER12
+    USER13 
+    USER14
+    USER15
+    USER16
+    USER17
+    USER18
+    USER19
+
+    These registers are not for the programmer to modify.
+    These help the CPU keep track of what instruction it should be running.
+    INSPTR  -   instruction pointer
+    STKPTR  -   stack pointer
+    BSEPTR  -   base pointer
